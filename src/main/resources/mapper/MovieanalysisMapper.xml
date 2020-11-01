@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ming.pachong2020.dao.MovieanalysisMapper" >
+  <resultMap id="BaseResultMap" type="com.ming.pachong2020.entity.Movieanalysis" >
+    <constructor >
+      <idArg column="movie_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="detail_id" jdbcType="INTEGER" javaType="java.lang.Integer" />
+      <arg column="movie_name" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="sname" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="namehash" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="movie_type" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="movie_url" jdbcType="VARCHAR" javaType="java.lang.String" />
+      <arg column="collecting_time" jdbcType="TIMESTAMP" javaType="java.util.Date" />
+    </constructor>
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    movie_id, detail_id, movie_name, sname, namehash, movie_type, movie_url, collecting_time
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ming.pachong2020.entity.MovieanalysisExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    'true' as QUERYID,
+    <include refid="Base_Column_List" />
+    from movie_analysis
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from movie_analysis
+    where movie_id = #{movieId,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from movie_analysis
+    where movie_id = #{movieId,jdbcType=INTEGER}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.ming.pachong2020.entity.MovieanalysisExample" >
+    delete from movie_analysis
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ming.pachong2020.entity.Movieanalysis" >
+    insert into movie_analysis (movie_id, detail_id, movie_name, 
+      sname, namehash, movie_type, 
+      movie_url, collecting_time)
+    values (#{movieId,jdbcType=INTEGER}, #{detailId,jdbcType=INTEGER}, #{movieName,jdbcType=VARCHAR}, 
+      #{sname,jdbcType=VARCHAR}, #{namehash,jdbcType=VARCHAR}, #{movieType,jdbcType=VARCHAR}, 
+      #{movieUrl,jdbcType=VARCHAR}, #{collectingTime,jdbcType=TIMESTAMP})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ming.pachong2020.entity.Movieanalysis" >
+    insert into movie_analysis
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="movieId != null" >
+        movie_id,
+      </if>
+      <if test="detailId != null" >
+        detail_id,
+      </if>
+      <if test="movieName != null" >
+        movie_name,
+      </if>
+      <if test="sname != null" >
+        sname,
+      </if>
+      <if test="namehash != null" >
+        namehash,
+      </if>
+      <if test="movieType != null" >
+        movie_type,
+      </if>
+      <if test="movieUrl != null" >
+        movie_url,
+      </if>
+      <if test="collectingTime != null" >
+        collecting_time,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="movieId != null" >
+        #{movieId,jdbcType=INTEGER},
+      </if>
+      <if test="detailId != null" >
+        #{detailId,jdbcType=INTEGER},
+      </if>
+      <if test="movieName != null" >
+        #{movieName,jdbcType=VARCHAR},
+      </if>
+      <if test="sname != null" >
+        #{sname,jdbcType=VARCHAR},
+      </if>
+      <if test="namehash != null" >
+        #{namehash,jdbcType=VARCHAR},
+      </if>
+      <if test="movieType != null" >
+        #{movieType,jdbcType=VARCHAR},
+      </if>
+      <if test="movieUrl != null" >
+        #{movieUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="collectingTime != null" >
+        #{collectingTime,jdbcType=TIMESTAMP},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ming.pachong2020.entity.MovieanalysisExample" resultType="java.lang.Integer" >
+    select count(*) from movie_analysis
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update movie_analysis
+    <set >
+      <if test="record.movieId != null" >
+        movie_id = #{record.movieId,jdbcType=INTEGER},
+      </if>
+      <if test="record.detailId != null" >
+        detail_id = #{record.detailId,jdbcType=INTEGER},
+      </if>
+      <if test="record.movieName != null" >
+        movie_name = #{record.movieName,jdbcType=VARCHAR},
+      </if>
+      <if test="record.sname != null" >
+        sname = #{record.sname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.namehash != null" >
+        namehash = #{record.namehash,jdbcType=VARCHAR},
+      </if>
+      <if test="record.movieType != null" >
+        movie_type = #{record.movieType,jdbcType=VARCHAR},
+      </if>
+      <if test="record.movieUrl != null" >
+        movie_url = #{record.movieUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="record.collectingTime != null" >
+        collecting_time = #{record.collectingTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update movie_analysis
+    set movie_id = #{record.movieId,jdbcType=INTEGER},
+      detail_id = #{record.detailId,jdbcType=INTEGER},
+      movie_name = #{record.movieName,jdbcType=VARCHAR},
+      sname = #{record.sname,jdbcType=VARCHAR},
+      namehash = #{record.namehash,jdbcType=VARCHAR},
+      movie_type = #{record.movieType,jdbcType=VARCHAR},
+      movie_url = #{record.movieUrl,jdbcType=VARCHAR},
+      collecting_time = #{record.collectingTime,jdbcType=TIMESTAMP}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ming.pachong2020.entity.Movieanalysis" >
+    update movie_analysis
+    <set >
+      <if test="detailId != null" >
+        detail_id = #{detailId,jdbcType=INTEGER},
+      </if>
+      <if test="movieName != null" >
+        movie_name = #{movieName,jdbcType=VARCHAR},
+      </if>
+      <if test="sname != null" >
+        sname = #{sname,jdbcType=VARCHAR},
+      </if>
+      <if test="namehash != null" >
+        namehash = #{namehash,jdbcType=VARCHAR},
+      </if>
+      <if test="movieType != null" >
+        movie_type = #{movieType,jdbcType=VARCHAR},
+      </if>
+      <if test="movieUrl != null" >
+        movie_url = #{movieUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="collectingTime != null" >
+        collecting_time = #{collectingTime,jdbcType=TIMESTAMP},
+      </if>
+    </set>
+    where movie_id = #{movieId,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ming.pachong2020.entity.Movieanalysis" >
+    update movie_analysis
+    set detail_id = #{detailId,jdbcType=INTEGER},
+      movie_name = #{movieName,jdbcType=VARCHAR},
+      sname = #{sname,jdbcType=VARCHAR},
+      namehash = #{namehash,jdbcType=VARCHAR},
+      movie_type = #{movieType,jdbcType=VARCHAR},
+      movie_url = #{movieUrl,jdbcType=VARCHAR},
+      collecting_time = #{collectingTime,jdbcType=TIMESTAMP}
+    where movie_id = #{movieId,jdbcType=INTEGER}
+  </update>
+</mapper>
